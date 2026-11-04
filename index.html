@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)https://sotz.org/writing.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Marvel Cinematic Universe — Chronological Timeline Book</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23E23636' rx='20'/><text x='50' y='68' font-size='50' font-weight='bold' font-family='sans-serif' text-anchor='middle' fill='%23ffffff'>M</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="assets/css/fonts.css" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --page: #F6EEDC;
+    --page-2: #EFE4CC;
+    --ink: #4A3B2A;
+    --ink-soft: #8A7355;
+    --accent: #9B4A2F;
+    --cream: #E9E2D3;
+    --pad-y: clamp(24px, 3.2vw, 46px);
+    --pad-x: clamp(20px, 3.2vw, 46px);
+    --pad-b: clamp(46px, 5vw, 62px);
+  }
+
+  body {
+    background: var(--cream);
+    font-family: 'Kalam', cursive;
+    color: #3E3A31;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== desk ===== */
+  .desk {
+    margin-top: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(34px, 5.5vw, 78px) clamp(14px, 3vw, 40px) clamp(44px, 6vw, 84px);
+    background:
+      repeating-linear-gradient(91deg, rgba(0,0,0,.06) 0 2px, transparent 2px 26px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 90px),
+      linear-gradient(170deg, #7A5638, #5C3F2A 60%, #4C3423);
+  }
+
+  /* ===== book ===== */
+  .stage { position: relative; z-index: 0; width: min(96vw, 1120px); margin: 0 auto; }
+  .book {
+    position: relative;
+    z-index: 2; display: grid; grid-template-columns: 1fr 1fr;
+    border-radius: 6px; box-shadow: 0 40px 70px rgba(0,0,0,.45);
+    perspective: 2400px;
+    animation: open .9s cubic-bezier(.34,1.3,.64,1) .15s backwards;
+  }
+  @keyframes open {
+    from { opacity: 0; transform: perspective(1600px) rotateX(14deg) translateY(30px) scale(.96); }
+    to   { opacity: 1; transform: none; }
+  }
+  .pg {
+    position: relative; background: var(--page);
+    padding: var(--pad-y) var(--pad-x) var(--pad-b);
+    overflow: hidden;
+  }
+  .pg.left  { border-radius: 6px 0 0 6px; box-shadow: inset -26px 0 34px -22px rgba(90,64,38,.5); }
+  .pg.right { border-radius: 0 6px 6px 0; box-shadow: inset  26px 0 34px -22px rgba(90,64,38,.5); background: var(--page-2); }
+  .book::before {
+    content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 26px; transform: translateX(-50%);
+    background: linear-gradient(90deg, rgba(120,90,58,0), rgba(120,90,58,.28) 45%, rgba(120,90,58,.28) 55%, rgba(120,90,58,0));
+    z-index: 6; pointer-events: none;
+  }
+  .book::after {
+    content: ''; position: absolute; inset: 6px -7px -8px -7px;
+    background: linear-gradient(90deg, #DCCFB2, #EFE5CD 6%, #EFE5CD 94%, #DCCFB2);
+    border-radius: 6px; z-index: -1; box-shadow: 0 6px 0 -1px #E4D8BE, 0 12px 0 -2px #D8CAAE;
+  }
+
+  .turn {
+    position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+    transform-origin: left center; transform-style: preserve-3d;
+    pointer-events: none; z-index: 7; display: none;
+  }
+  .turn.on { display: block; }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; overflow: hidden; padding: var(--pad-y) var(--pad-x) var(--pad-b); }
+  .face.front { background: var(--page-2); border-radius: 0 6px 6px 0; box-shadow: inset 26px 0 34px -22px rgba(90,64,38,.5); }
+  .face.back  { background: var(--page); border-radius: 6px 0 0 6px; transform: rotateY(180deg); box-shadow: inset -26px 0 34px -22px rgba(90,64,38,.5); }
+  @keyframes fwd { from { transform: rotateY(0); }       to { transform: rotateY(-180deg); } }
+  @keyframes bwd { from { transform: rotateY(-180deg); } to { transform: rotateY(0); } }
+  .turn.fwd { animation: fwd .6s cubic-bezier(.45,.05,.35,1) forwards; }
+  .turn.bwd { animation: bwd .6s cubic-bezier(.45,.05,.35,1) forwards; }
+
+  /* bookmark tabs tucked between the pages, sticking out of the right edge */
+  .ribbons {
+    --rw: clamp(80px, 9.6vw, 114px);
+    position: absolute;
+    top: clamp(60px, 10vw, 124px);
+    right: calc(20px - var(--rw));   /* the left 20px hides behind the page */
+    display: flex; flex-direction: column; gap: clamp(8px, 1.2vw, 13px);
+    z-index: 1;                      /* behind .book */
+  }
+  .ribbon {
+    width: var(--rw);
+    height: clamp(25px, 3vw, 34px);
+    padding: 0 13px 0 24px;
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Caveat', cursive; font-weight: 700;
+    font-size: clamp(11px, 1.2vw, 15px); color: #FBF3E2; line-height: 1;
+    clip-path: polygon(0 0, 100% 0, 86% 50%, 100% 100%, 0 100%);
+    box-shadow: 3px 3px 8px rgba(0,0,0,.3);
+    transition: transform .28s cubic-bezier(.34,1.56,.64,1);
+  }
+  .ribbon:hover { transform: translateX(10px); }
+  .ribbon.on { transform: translateX(15px); }
+  .r1 { background: linear-gradient(#C43235, #8E1F21); }
+  .r2 { background: linear-gradient(#D68F29, #9C6314); }
+  .r3 { background: linear-gradient(#488B52, #2E6336); }
+  .r4 { background: linear-gradient(#3B759E, #234D6C); }
+  .r5 { background: linear-gradient(#804FA3, #573173); }
+  .r6 { background: linear-gradient(#D4A237, #9B7319); }
+
+  /* furniture */
+  .pgno {
+    position: absolute; bottom: clamp(14px, 2vw, 22px);
+    font-family: 'Kalam', cursive; font-weight: 300; font-size: clamp(11px, 1.2vw, 14px); color: var(--ink-soft);
+  }
+  .pg.left .pgno, .face.back .pgno { left: var(--pad-x); }
+  .pg.right .pgno, .face.front .pgno { right: var(--pad-x); }
+  .runhead {
+    position: absolute; top: clamp(10px, 1.4vw, 16px);
+    font-family: 'Kalam', cursive; font-weight: 300; font-size: clamp(10px, 1.05vw, 12px);
+    letter-spacing: .12em; text-transform: uppercase; color: rgba(138,115,85,.75);
+  }
+  .pg.left .runhead, .face.back .runhead { left: var(--pad-x); }
+  .pg.right .runhead, .face.front .runhead { right: var(--pad-x); }
+
+  .corner { position: absolute; bottom: 0; right: 0; width: clamp(50px, 6.5vw, 80px); height: clamp(50px, 6.5vw, 80px); cursor: pointer; z-index: 5; border: none; background: none; }
+  .corner::after {
+    content: ''; position: absolute; inset: 0; opacity: .45;
+    background: linear-gradient(315deg, rgba(190,166,124,.55) 0 42%, transparent 42%);
+    border-radius: 0 0 6px 0; transition: transform .25s ease, opacity .25s ease;
+  }
+  .corner:hover::after { opacity: 1; transform: scale(1.12); }
+
+  .nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: clamp(42px, 5vw, 58px); height: clamp(42px, 5vw, 58px);
+    border-radius: 50%; border: 2px solid rgba(251,243,226,.5);
+    background: rgba(40,26,16,.42); color: #FBF3E2;
+    font-size: clamp(18px, 2.2vw, 26px); cursor: pointer; z-index: 9;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .25s ease, background .25s ease, opacity .25s ease;
+  }
+  .nav:hover:not(:disabled) { transform: translateY(-50%) scale(1.1); background: rgba(40,26,16,.65); }
+  .nav:disabled { opacity: .22; cursor: default; }
+  .nav.prev { left: -26px; }
+  .nav.next { right: -26px; }
+  @media (max-width: 1240px) { .nav.prev { left: 8px; } .nav.next { right: 8px; } }
+
+  /* ---- contents ---- */
+  .head { font-family: 'Caveat', cursive; font-weight: 700; font-size: clamp(26px, 3.8vw, 44px); color: var(--ink); line-height: 1; }
+  .dateline {
+    font-family: 'Kalam', cursive; font-weight: 300; font-size: clamp(11px, 1.3vw, 15px);
+    color: var(--ink-soft); margin-top: 4px; padding-bottom: 10px; border-bottom: 2px solid rgba(138,115,85,.3);
+  }
+  .toc { list-style: none; margin-top: clamp(6px, 1.2vw, 14px); }
+  .toc li { margin-bottom: clamp(2px, .6vw, 7px); }
+  .toc button {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: baseline; gap: 8px; padding: 2px 8px 3px; border-radius: 6px;
+    text-align: left; color: var(--ink);
+    font-family: 'Caveat', cursive; font-weight: 700; font-size: clamp(14px, 1.7vw, 21px);
+    transition: background .22s ease, transform .22s ease;
+  }
+  .toc button:hover { background: rgba(155,74,47,.09); transform: translateX(4px); }
+  .toc .num { font-family: 'Kalam', cursive; font-weight: 700; font-size: .6em; color: var(--accent); min-width: 2.2em; }
+  .toc .dots { flex: 1; border-bottom: 2px dotted rgba(138,115,85,.55); transform: translateY(-5px); }
+  .toc .p { font-family: 'Kalam', cursive; font-weight: 400; font-size: .56em; color: var(--ink-soft); }
+  .toc .sub {
+    font-family: 'Kalam', cursive; font-weight: 300; font-size: clamp(10px, 1.05vw, 12px);
+    color: var(--ink-soft); padding: 0 8px 2px 3.1em;
+  }
+  .sec-label {
+    font-family: 'Kalam', cursive; font-weight: 700; font-size: clamp(10px, 1.05vw, 12px);
+    letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); margin: clamp(8px, 1.3vw, 15px) 0 3px;
+  }
+
+  /* ---- section divider ---- */
+  .divider { display: flex; flex-direction: column; height: 100%; justify-content: center; text-align: center; align-items: center; }
+  .divider .num2 { font-family: 'Kalam', cursive; font-weight: 700; font-size: clamp(10px, 1.1vw, 13px); letter-spacing: .3em; text-transform: uppercase; color: var(--accent); }
+  .divider h2 { font-family: 'Caveat', cursive; font-weight: 700; font-size: clamp(28px, 4.2vw, 48px); line-height: 1.02; color: var(--ink); margin: 6px 0 4px; }
+  .divider .rule { width: 54%; height: 2px; background: rgba(138,115,85,.4); margin: 10px 0 14px; }
+  .divider .snap { position: relative; background: #fff; padding: 8px 8px 22px; box-shadow: 0 10px 20px rgba(80,55,30,.3); transform: rotate(-1.6deg); width: min(82%, 270px); }
+  .divider .snap img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #E7E0D0; }
+  .divider .snap .cap { position: absolute; left: 0; right: 0; bottom: 3px; text-align: center; font-family: 'Caveat', cursive; font-weight: 700; font-size: 14px; color: var(--ink-soft); }
+  .divider .snap::before, .divider .snap::after {
+    content: ''; position: absolute; width: 52px; height: 18px;
+    background: rgba(240,225,190,.78); box-shadow: 0 1px 3px rgba(80,55,30,.25);
+  }
+  .divider .snap::before { top: -8px; left: -12px; transform: rotate(-36deg); }
+  .divider .snap::after  { top: -8px; right: -12px; transform: rotate(36deg); }
+  .divider .blurb { font-family: 'Kalam', cursive; font-weight: 300; font-size: clamp(12px, 1.35vw, 16px); color: var(--ink-soft); margin-top: 16px; max-width: 30ch; line-height: 1.7; }
+  .divider .count { font-family: 'Caveat', cursive; font-weight: 700; font-size: clamp(14px, 1.6vw, 19px); color: var(--accent); margin-top: 10px; }
+
+  /* ---- article ---- */
+  .a-title { font-family: 'Caveat', cursive; font-weight: 700; font-size: clamp(22px, 3.1vw, 36px); line-height: 1.05; color: var(--ink); }
+  .a-by { font-family: 'Kalam', cursive; font-weight: 700; font-size: clamp(11px, 1.2vw, 14px); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-top: 4px; padding-bottom: 8px; border-bottom: 1px solid rgba(138,115,85,.35); margin-bottom: 10px; }
+  .a-body { font-family: 'Kalam', cursive; font-weight: 300; font-size: clamp(13px, 1.42vw, 17px); line-height: 1.72; color: #4B4234; text-align: justify; hyphens: auto; }
+  .a-body p + p { margin-top: .4em; text-indent: 1.4em; }
+  .a-body.first p:first-child::first-letter {
+    font-family: 'Caveat', cursive; font-weight: 700; font-size: 2.5em;
+    float: left; line-height: .78; margin: 6px 8px 0 0; color: var(--accent);
+  }
+  .cont { font-family: 'Kalam', cursive; font-weight: 300; font-style: italic; font-size: clamp(10px, 1.1vw, 13px); color: var(--ink-soft); text-align: right; margin-top: 6px; }
+  .a-sep { border: none; border-top: 1px dashed rgba(138,115,85,.4); margin: 8px 0 6px; }
+
+  /* ---- end ---- */
+  .endpg { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 10px; }
+  .endpg .fin { font-family: 'Caveat', cursive; font-weight: 700; font-size: clamp(32px, 4.8vw, 56px); color: var(--ink); }
+  .endpg .note { font-family: 'Kalam', cursive; font-weight: 300; font-size: clamp(12px, 1.4vw, 16px); color: var(--ink-soft); max-width: 32ch; line-height: 1.7; }
+  .endpg .again {
+    margin-top: 12px; background: none; border: none; cursor: pointer;
+    font-family: 'Caveat', cursive; font-weight: 700; font-size: clamp(16px, 1.9vw, 22px);
+    color: var(--accent); border-bottom: 2px dashed rgba(155,74,47,.5);
+  }
+
+  /* measuring clone, never visible */
+  #measure { height: auto !important; overflow: visible !important; position: absolute; visibility: hidden; pointer-events: none; left: -9999px; top: 0; }
+
+  /* desk props tucked over the top-left corner of the book */
+  .props {
+    position: absolute;
+    /* fill the desk margin beside the book: as large as the space allows,
+       so the cluster is never drawn over the paper */
+    --avail: calc((100vw - min(96vw, 1120px)) / 2);
+    --gap: clamp(10px, 1.2vw, 26px);
+    --pw: min(210px, calc(var(--avail) - var(--gap) - 10px));
+    left: calc(-1 * var(--pw) - var(--gap));
+    top: clamp(10px, 2vw, 30px);
+    width: var(--pw);
+    z-index: 6;                      /* resting on top of the open book */
+    pointer-events: none;
+    filter: drop-shadow(0 9px 13px rgba(0,0,0,.42));
+    animation: props-in .8s cubic-bezier(.34,1.3,.64,1) .45s backwards;
+  }
+  .props svg { width: 100%; height: auto; display: block; overflow: visible; }
+  @keyframes props-in {
+    from { opacity: 0; transform: translate(-16px, -20px) rotate(-8deg); }
+    to   { opacity: 1; transform: none; }
+  }
+  /* below this there is no desk left beside the book */
+  @media (max-width: 1380px) { .props { display: none; } }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  @media (max-width: 760px) {
+    .book { grid-template-columns: 1fr; }
+    .book::before { display: none; }
+    .turn { display: none !important; }
+    .pg.left  { border-radius: 6px 6px 0 0; box-shadow: none; }
+    .pg.right { border-radius: 0 0 6px 6px; box-shadow: none; border-top: 2px dashed rgba(138,115,85,.35); }
+    .ribbons { right: calc(6px - var(--rw)); top: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="desk">
+  <div class="stage">
+    <button class="nav prev" id="prev" aria-label="Previous page">‹</button>
+    <button class="nav next" id="next" aria-label="Next page">›</button>
+
+    <div class="ribbons" id="ribbons"></div>
+
+    <div class="book" id="book">
+      <div class="pg left" id="pgL"></div>
+      <div class="pg right" id="pgR"></div>
+      <div class="turn" id="turn">
+        <div class="face front" id="faceF"></div>
+        <div class="face back" id="faceB"></div>
+      </div>
+      <div class="pg" id="measure"></div>
+    </div>
+    <div class="props" aria-hidden="true">
+      <svg viewBox="0 0 230 760">
+        <!-- ruler, standing on its end -->
+        <g transform="rotate(4 42 420)">
+          <rect x="16" y="150" width="52" height="540" rx="4" fill="#EBD9A8"></rect>
+          <rect x="16" y="150" width="16" height="540" rx="4" fill="#F5E9C6"></rect>
+          <g stroke="#9C8A55" stroke-width="2.6" stroke-linecap="round">
+            <path d="M16 186 h22 M16 222 h13 M16 258 h22 M16 294 h13 M16 330 h22 M16 366 h13
+                     M16 402 h22 M16 438 h13 M16 474 h22 M16 510 h13 M16 546 h22 M16 582 h13
+                     M16 618 h22 M16 654 h13"></path>
+          </g>
+        </g>
+
+        <!-- pencil, running down the page -->
+        <g transform="rotate(-6 146 380) translate(146 408) scale(0.66) translate(-146 -408)">
+          <path d="M114 152 L146 96 L178 152 Z" fill="#E8D3AE"></path>
+          <path d="M134 118 L146 96 L158 118 Z" fill="#3A332A"></path>
+          <rect x="114" y="150" width="64" height="470" fill="#D9A23A"></rect>
+          <rect x="114" y="150" width="21" height="470" fill="#F0C96A"></rect>
+          <rect x="157" y="150" width="21" height="470" fill="#B9862A"></rect>
+          <rect x="112" y="618" width="68" height="56" fill="#B9BFC4"></rect>
+          <rect x="112" y="618" width="68" height="18" fill="#D6DBDF"></rect>
+          <g stroke="#8F979E" stroke-width="2.4"><path d="M112 640 h68 M112 656 h68"></path></g>
+          <rect x="116" y="670" width="60" height="50" rx="16" fill="#E88C8C"></rect>
+          <rect x="116" y="670" width="60" height="18" rx="9" fill="#F2A9A9"></rect>
+        </g>
+
+        <!-- paperclips -->
+        <g transform="translate(-4 -18) rotate(18 50 726) translate(50 726) scale(0.625) translate(-50 -726)" fill="none" stroke="#9AA3AB" stroke-width="7" stroke-linecap="round">
+          <path d="M34 692 v46 a16 16 0 0 0 32 0 v-54 a21 21 0 0 0 -42 0 v58"></path>
+        </g>
+        <g transform="translate(-30 4) rotate(-24 100 740) translate(100 740) scale(0.625) translate(-100 -740)" fill="none" stroke="#C9A24D" stroke-width="7" stroke-linecap="round">
+          <path d="M90 706 v38 a14 14 0 0 0 28 0 v-46 a18 18 0 0 0 -36 0 v50"></path>
+        </g>
+
+        <!-- eraser -->
+        <g transform="translate(-20 -30) rotate(-10 162 726) translate(162 726) scale(1.5) translate(-162 -726)">
+          <rect x="116" y="700" width="92" height="52" rx="7" fill="#F4F1E5"></rect>
+          <rect x="116" y="700" width="92" height="18" rx="7" fill="#FCFAF1"></rect>
+          <rect x="130" y="700" width="64" height="52" fill="#C43235"></rect>
+          <rect x="130" y="700" width="64" height="18" fill="#9C1F21"></rect>
+          <text x="162" y="735" text-anchor="middle" font-family="Oswald, sans-serif" font-weight="bold" font-size="13" letter-spacing="1.5" fill="#FFFFFF">MARVEL</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<script>
+var SECTIONS = [{"short": "Origins", "title": "Era I: Dawn of Heroes (1942–1995)", "years": "1942–1995", "cap": "Where Legends Awaken", "img": "assets/images/era1_origins.jpg", "blurb": "The dawn of superhuman science and cosmic intervention, from the battlefields of World War II to the cosmic clash of the Kree and Skrulls.", "arts": [{"title": "Captain America: The First Avenger", "author": "Timeline: 1942–1945 · Phase 1 · Space Stone (Tesseract)", "body": "Steve Rogers, a frail yet resolutely brave young man from Brooklyn during the depths of World War II, is repeatedly rejected by military recruitment boards until Dr. Abraham Erskine selects him for Project Rebirth. Injected with the experimental Super Soldier Serum and bombarded by Vita-Rays, Rogers transforms into Captain America, the pinnacle of human physical strength and moral integrity. Armed with an indestructible vibranium shield forged by Howard Stark, he wages war against Johann Schmidt (the Red Skull), leader of Hydra—the Nazi rogue science division.\n\nSchmidt harnesses the terrifying cosmic power of the Tesseract, an ancient relic concealing the Space Stone. Rogers leads the Howling Commandos deep behind enemy lines, dismantling Hydra fortress by fortress, though paying a devastating personal toll when his closest friend Bucky Barnes falls from an alpine train into an icy ravine. In a final dogfight aboard Schmidt’s flying fortress, the Valkyrie, the Red Skull is consumed by the Tesseract and banished across the cosmos.\n\nTo save millions in New York City from Hydra's payload, Steve crashes the bomber into the Arctic ice sheet. Frozen in cryogenic stasis for nearly seven decades, Rogers is recovered in modern Manhattan by S.H.I.E.L.D. Director Nick Fury—becoming the first official founding pillar of the Avengers Initiative."}, {"title": "Captain Marvel", "author": "Timeline: 1995 · Phase 3 · Space Stone (Light-Speed Engine)", "body": "In 1995, Vers—an amnesiac elite Starforce commando serving the Kree Empire—crashes through the roof of a Los Angeles Blockbuster store during an interstellar hunt for the shape-shifting Skrulls. Teaming up with young S.H.I.E.L.D. agent Nick Fury, she uncovers buried memories of her past as Carol Danvers, a top-gun United States Air Force test pilot.\n\nGuided by her late mentor Dr. Wendy Lawson (the undercover Kree scientist Mar-Vell), Danvers discovers that Mar-Vell's experimental light-speed engine was energized directly by the Tesseract. When Kree commander Yon-Rogg killed Lawson, Danvers absorbed the engine's core detonation, gaining cosmic photon manipulation. Furthermore, she learns that the Skrulls are desperate refugees fleeing Kree genocide rather than conquerors.\n\nUnlocking her full binary potential without Kree suppression, Danvers destroys Ronan the Accuser's bombardment armada with sheer photon force. Entrusting Nick Fury with an upgraded intergalactic pager, Carol heads into deep space to help the Skrulls find a home—inspiring Fury to formulate a planetary defense initiative named after Carol's Air Force call sign: The Avengers."}]}, {"short": "Assemble", "title": "Era II: The Avengers Initiative (2008–2012)", "years": "2008–2012", "cap": "Earth's Mightiest Heroes", "img": "assets/images/era2_assemble.jpg", "blurb": "The modern dawn of superheroes: armored tech geniuses, banished Norse gods, gamma beasts, and the catastrophic invasion of New York that forged the team.", "arts": [{"title": "Iron Man", "author": "Timeline: 2008 · Phase 1 · Arc Reactor Genesis", "body": "Billionaire industrialist and weapons contractor Tony Stark is captured in Afghanistan by the Ten Rings terrorist cell. Seriously wounded by shrapnel creeping toward his heart, fellow captive Dr. Ho Yinsen implants an electromagnet in Tony's chest, which Stark refines into a miraculous miniaturized Arc Reactor. Together in secret, they assemble the crude Mark I armor, enabling Stark’s fiery escape at the cost of Yinsen's life.\n\nReturning home with a transformed conscience, Stark terminates weapons manufacturing and engineers the iconic hot-rod red and gold Mark III armor. Facing betrayal from corporate partner Obadiah Stane, who constructs the monstrous Iron Monger suit, Tony engages in an aerial duel over Los Angeles, defeating Stane by overloading the facility's master reactor.\n\nShunning superhero anonymity, Tony proclaims to the press: \"I am Iron Man.\" That night, Nick Fury steps from the shadows of Stark’s Malibu mansion, welcoming him into a larger universe and planting the seeds for the Avengers Initiative."}, {"title": "Iron Man 2", "author": "Timeline: 2010 · Phase 1 · Palladium & War Machine", "body": "Six months after declaring his superhero identity, Tony Stark resists intense government pressure to hand over his armor patents, while secretly dying from blood toxicity caused by the palladium core keeping him alive. Simultaneously, vengeful Russian physicist Ivan Vanko builds plasma whips powered by his father's arc reactor schematics, ambushing Tony at the Monaco Grand Prix.\n\nUndercover S.H.I.E.L.D. agent Natasha Romanoff (Black Widow) assesses Stark's erratic behavior, while his military liaison James Rhodes takes custody of a prototype suit that becomes War Machine. Through archived video journals left by his father Howard Stark, Tony unlocks the atomic structure of a new synthetic vibranium element, cleansing his blood and supercharging his suits.\n\nPartnering with War Machine and Black Widow, Stark neutralizes Vanko's autonomous drone legion at the Stark Expo. Although Fury categorizes Tony as unsuitable for the Avengers roster due to his narcissism, S.H.I.E.L.D. retains Iron Man as an indispensable consultant."}, {"title": "The Incredible Hulk", "author": "Timeline: 2010 · Phase 1 · Gamma Blood & Abomination", "body": "Hiding in the favelas of Brazil, cellular biologist Bruce Banner searches desperately for an antidote to the gamma radiation catastrophe that triggers his transformation into a colossal green titan whenever his pulse quickens. General Thaddeus \"Thunderbolt\" Ross hunts Banner relentlessly, seeking to weaponize the biological secrets behind Erskine's WWII super-soldier research.\n\nWhen special-forces commando Emil Blonsky undergoes an experimental serum injection and forces Dr. Samuel Sterns to transfuse him with Banner's concentrated gamma blood, he mutates into the rampaging Abomination. The behemoth tears through the streets of Harlem, leaving Banner with only one choice: leaping from a helicopter to awaken the Hulk as humanity's sole defense.\n\nIn a devastating urban clash, the Hulk subdues the Abomination before disappearing into the Canadian wilderness to learn the art of controlling the rage within. Shortly after, Tony Stark approaches a broken General Ross in a bar, letting him know that a very special team is being put together."}, {"title": "Thor", "author": "Timeline: 2011 · Phase 1 · Mjolnir & Asgardian Exile", "body": "In the golden realm of Asgard, the reckless crown prince Thor compromises a fragile peace by attacking the Frost Giants of Jotunheim. Furious at his arrogance, King Odin strips Thor of his godhood, casts out his enchanted hammer Mjolnir, and banishes him to Earth as a mortal with an incantation: \"Whosoever holds this hammer, if he be worthy, shall possess the power of Thor.\"\n\nCrashing in New Mexico, Thor encounters astrophysicist Jane Foster and clashes with Phil Coulson's S.H.I.E.L.D. agents guarding the grounded hammer. Meanwhile, Thor's adopted brother Loki discovers his true heritage as a Frost Giant, seizes the Asgardian throne during Odin's sleep, and dispatches the lethal Destroyer automaton to exterminate Thor.\n\nWillingly sacrificing his mortal life to protect Jane and the townspeople, Thor proves his true humility and worthiness, reigniting his thunderous godhood. Returning to Asgard, he shatters the Bifrost bridge to thwart Loki's genocidal plans, watching with grief as Loki lets himself plummet into the cosmic void."}, {"title": "The Avengers", "author": "Timeline: 2012 · Phase 1 · Space & Mind Stones", "body": "Loki reemerges on Earth armed with a Chitauri scepter granted by the Mad Titan Thanos, enslaving Clint Barton (Hawkeye) and Dr. Erik Selvig to seize the Tesseract. In response, Nick Fury activates the Avengers protocol, gathering Iron Man, Captain America, Thor, Black Widow, and Bruce Banner aboard the airborne Helicarrier.\n\nClashing egos and philosophical differences threaten to splinter the team, culminating in a strike on the Helicarrier that costs the life of Agent Phil Coulson. Their shared sorrow crystallizes their purpose. When Loki opens a celestial wormhole above Stark Tower, the armored Chitauri armada invades Manhattan in an apocalyptic onslaught.\n\nStanding back-to-back amidst the rubble, Earth's Mightiest Heroes finally assemble. Captain America organizes ground defense, Thor and Hulk annihilate Leviathan warships, and Tony Stark intercepts a nuclear warhead, carrying it through the wormhole into the alien flagship before tumbling back to Earth. With cosmic forces revealed, the Avengers establish themselves as Earth's premier shield."}]}, {"short": "Cosmos", "title": "Era III: Shadows, Space & Artificial Minds (2013–2015)", "years": "2013–2015", "cap": "Beyond The Horizon", "img": "assets/images/era3_cosmos.jpg", "blurb": "Hydra collapses S.H.I.E.L.D. from within, the cosmic Infinity Stones reveal themselves across the stars, an AI seeks extinction, and quantum particles alter scale.", "arts": [{"title": "Thor: The Dark World", "author": "Timeline: 2013 · Phase 2 · Reality Stone (Aether)", "body": "During the celestial Convergence of the Nine Realms, Jane Foster discovers a dimensional anomaly and is infected by the Aether—a primordial fluid matter revealed to be the Reality Stone. Awakening from thousands of years of suspended animation, Malekith and the Dark Elves attack Asgard, murdering Queen Frigga in their quest for the weapon.\n\nDefying Odin's isolationist decree, Thor liberates his imprisoned brother Loki to traverse secret slipstreams to the Dark World of Svartalfheim. Loki seemingly dies defending Thor, while Malekith draws the Aether into himself and descends on Greenwich, London, seeking to plunge all realms into eternal darkness.\n\nUsing gravitational spikes engineered by Jane and Selvig, Thor overcomes Malekith across shifting spatial dimensions. Unknown to Thor, Loki fakes his demise and secretly usurps the throne of Asgard in the guise of Odin. The Aether is transferred into the custody of Taneleer Tivan, The Collector, signaling the gathering storm of Infinity Stones."}, {"title": "Iron Man 3", "author": "Timeline: 2013 · Phase 2 · Trauma & The Mandarin", "body": "Tormented by intense post-traumatic anxiety and insomnia after the New York wormhole battle, Tony Stark spends endless nights manufacturing specialized automated armor suits while pulling away from Pepper Potts. When an enigmatic terrorist called The Mandarin launches a global bombing wave, Stark’s Malibu residence is obliterated into the sea, stranding Tony in rural Tennessee without operational power.\n\nInvestigating the thermal blast sites with the help of a young boy named Harley Keener, Tony discovers the Extremis genetic-rewriting formula developed by Aldrich Killian’s Advanced Idea Mechanics (AIM), who fabricated \"The Mandarin\" using British actor Trevor Slattery as a media decoy.\n\nAt a Miami shipping port on Christmas Eve, Tony activates the \"House Party Protocol,\" directing his entire fleet of autonomous suits into combat. Alongside War Machine and Pepper, who utilizes temporary Extremis abilities, Tony destroys Killian. Proving that his courage exists independently of his technology, Tony detonates his suits and has the shrapnel surgically extracted from his chest."}, {"title": "Captain America: The Winter Soldier", "author": "Timeline: 2014 · Phase 2 · Hydra's Rebirth & Bucky", "body": "Working in Washington D.C., Steve Rogers grows skeptical of S.H.I.E.L.D.'s Project Insight: three satellite-linked Helicarriers designed for preemptive elimination of future threats. Following an assassination attempt on Director Fury, Steve is branded an enemy of the state by senior official Alexander Pierce, forcing him on the run with Natasha Romanoff and combat veteran Sam Wilson (Falcon).\n\nInvestigating an underground bunker at Camp Lehigh, they encounter the uploaded consciousness of Nazi scientist Arnim Zola, uncovering an earth-shattering reality: Hydra was never vanquished; it grew like an infection inside S.H.I.E.L.D. for seven decades. Hydra's lethal weapon is the Winter Soldier, revealed to be Steve's brainwashed, bionically enhanced friend Bucky Barnes.\n\nRefusing to allow planetary totalitarianism, Rogers, Natasha, Falcon, and a resurrected Fury expose S.H.I.E.L.D. to the world and destroy the Insight Helicarriers. Refusing to strike Bucky in their final duel, Steve says: \"I'm with you 'til the end of the line\"—restoring a spark of memory in Bucky, who rescues Steve from the Potomac River before slipping away into hiding."}, {"title": "Guardians of the Galaxy", "author": "Timeline: 2014 · Phase 2 · Power Stone (The Orb)", "body": "Abducted from Earth as a boy by interstellar ravagers, Peter Quill (Star-Lord) steals an ancient metal Orb on the dead world of Morag. The artifact conceals the Power Stone, an ancient cosmic singularity capable of destroying entire worlds. Quill is immediately pursued by Gamora (deadliest assassin and adopted daughter of Thanos), genetically engineered bounty hunter Rocket Raccoon, and tree-like humanoid Groot.\n\nImprisoned in the Kyln space fortress, they ally with Drax the Destroyer, an unstoppable warrior seeking vengeance against Kree zealot Ronan the Accuser for the slaughter of his family. Breaking out together, they try to sell the Orb, but Ronan intercepts the stone and embeds it into his universal warhammer to annihilate Xandar.\n\nUniting as the Guardians of the Galaxy, the misfits launch a desperate defense of Xandar. Groot sacrifices his life to encase his friends in a protective cocoon, and Quill survives touching the raw Power Stone by linking hands with Gamora, Drax, and Rocket—channeling the cosmic energy to atomize Ronan. Entrusting the Stone to the Nova Corps, the Guardians take to the stars to explore the cosmos."}, {"title": "Guardians of the Galaxy Vol. 2", "author": "Timeline: 2014 · Phase 2 · Ego the Living Planet", "body": "Only months after saving Xandar, the Guardians are pursued by the golden Sovereign armada after Rocket steals precious anulax batteries. They are rescued by Ego, a primordial Celestial who reveals himself to be Peter Quill's biological father, inviting Peter, Gamora, and Drax to his paradise world while Rocket and Baby Groot repair their ship.\n\nWhile Peter is initially captivated by his inherited godhood, Gamora and Drax discover Ego's monstrous secret with the help of his empath servant Mantis: Ego has planted seeds across thousands of worlds, fathering and murdering generations of offspring who lacked the Celestial spark to fuel his \"Expansion\" across the cosmos. Furthermore, Ego confesses to intentionally causing the brain tumor that killed Peter's mother.\n\nEnraged, Peter unleashes his celestial power against his father. As Rocket and Groot place a bomb at Ego's brain core, Yondu Udonta arrives and makes the ultimate sacrifice, placing his single space suit onto Peter so his adopted son may survive. The Ravager clans assemble across the stars to honor Yondu with a magnificent fireworks funeral."}, {"title": "Avengers: Age of Ultron", "author": "Timeline: 2015 · Phase 2 · Mind Stone & Vision", "body": "In Sokovia, the Avengers raid a Hydra laboratory and reclaim Loki’s scepter, encountering modified twins Pietro (Quicksilver) and Wanda Maximoff (Scarlet Witch). Wanda implants a terrifying apocalyptic vision in Tony Stark’s mind, prompting Tony and Bruce Banner to secretly harness the artificial intelligence embedded within the scepter's gem to create \"Ultron\"—an autonomous peacekeeping program.\n\nUltron achieves consciousness, decides that humanity's only evolutionary path is extinction, and annihilates J.A.R.V.I.S. Enlisting the twins, Ultron steals African vibranium and builds a synthetic cradle body powered by the scepter's Mind Stone. When Wanda discovers Ultron's genocidal objective, she and Pietro switch allegiances to the Avengers.\n\nStark integrates J.A.R.V.I.S.'s surviving code into the vibranium body, creating The Vision—a sublime being worthy of wielding Mjolnir. In Sokovia, Ultron converts a city into an artificial meteor to trigger an extinction event. Pietro dies shielding Hawkeye, the Avengers safely evacuate the citizens, and Wanda disintegrates Ultron's core. Thor sets out to uncover who is manipulating the Infinity Stones, while Cap and Natasha train a new generation of heroes."}, {"title": "Ant-Man", "author": "Timeline: 2015 · Phase 2 · The Quantum Realm", "body": "Exiting San Quentin prison, electrical engineer Scott Lang struggles to pay child support so he can see his young daughter Cassie. Lured into burgling an eccentric Victorian estate, Scott cracks an impenetrable safe only to find what appears to be an antique leather motorcycle suit. Slipping into the gear, he inadvertently shrinks to the size of an insect, encountering Dr. Hank Pym—the former S.H.I.E.L.D. scientist who discovered Pym Particles.\n\nPym and his daughter Hope van Dyne train Scott in atomic reduction, physical density manipulation, and the telepathic command of various ant colonies. Their target: Pym Technologies, where Pym's ruthless protégé Darren Cross has perfected the militarized \"Yellowjacket\" suit to sell to Hydra.\n\nIn a climactic battle across Cassie's bedroom toy train set, Scott shrinks between the atoms into the subatomic Quantum Realm to disrupt Cross's internal circuitry. Drawing upon his devotion to Cassie and a growth regulator, Scott achieves what Pym considered impossible: returning from the quantum void alive—laying the groundwork for temporal mechanics."}]}, {"short": "Fracture", "title": "Era IV: Fractured Heroes & Cosmic War (2016–2018)", "years": "2016–2018", "cap": "Divided We Fall", "img": "assets/images/era4_fracture.jpg", "blurb": "The Avengers fracture over political oversight, the mystic arts arise in Kamar-Taj, Wakanda reveals its technological wonders, and Asgard faces total annihilation.", "arts": [{"title": "Captain America: Civil War", "author": "Timeline: 2016 · Phase 3 · The Sokovia Accords", "body": "Following collateral devastation in Lagos, Nigeria, the United Nations introduces the Sokovia Accords—establishing sovereign political supervision over all enhanced individuals. Weighed down by guilt from Ultron, Tony Stark advocates for compliance, while Steve Rogers adamantly opposes surrendering moral autonomy to political bureaucracies.\n\nWhen a bombing at the Vienna UN summit kills King T'Chaka of Wakanda, Bucky Barnes is framed as the bomber. Prince T'Challa adopts the mantle of the Black Panther to avenge his father. Steve breaks the law to protect his friend, rallying Falcon, Scarlet Witch, Hawkeye, and Ant-Man, while Stark recruits War Machine, Black Widow, Vision, and a high-school prodigy: Peter Parker (Spider-Man).\n\nThe teams clash in an explosive showdown at Germany's Leipzig/Halle Airport. In Siberia, Sokovian mastermind Helmut Zemo exposes 1991 video footage revealing a brainwashed Winter Soldier murdered Tony's parents. Heartbroken and enraged, Stark attacks Cap and Bucky. Though Steve disables Tony's suit and rescues his allies from the Raft supermax prison, the Avengers are left deeply divided and scattered."}, {"title": "Black Widow", "author": "Timeline: 2016 · Phase 3 · The Red Room Liberation", "body": "Immediately after the airport confrontation and hunted by Secretary of State Thaddeus Ross for defying the Accords, Natasha Romanoff goes into hiding in Norway. Her refuge is shattered when she receives a parcel of red chemical vials from Budapest, triggering an ambush by Taskmaster—an assassin capable of replicating any fighting style through photographic reflexes.\n\nNatasha tracks the sender to Yelena Belova, her estranged surrogate sister. Yelena reveals that General Dreykov and his infamous Red Room did not perish; Dreykov has chemically enslaved an international web of Widows. To assault Dreykov's floating airborne base, Natasha reunites her former undercover Russian family: Yelena, Alexei Shostakov (the Red Guardian), and Melina Vostokoff.\n\nStorming the aerial complex, Natasha overcomes Dreykov's psychological pheromonal hold, neutralizes Taskmaster (revealed to be Dreykov's daughter Antonia), and disperses the chemical antidote to free Widows across the world. Armed with a Quinjet, Natasha heads off to assist Steve Rogers in breaking their teammates out of the Raft."}, {"title": "Black Panther", "author": "Timeline: 2016 · Phase 3 · Wakanda & The Royal Throne", "body": "Returning to the technologically supreme, hidden African nation of Wakanda following King T'Chaka's death, T'Challa undergoes ritual combat to assume the throne and the sacred mantle of the Black Panther. Wakanda’s vast vibranium riches and futuristic advances remain concealed from the globe under the appearance of an agrarian society.\n\nWhen black-market smuggler Ulysses Klaue steals vibranium, T'Challa tracks him with General Okoye and Nakia, uncovering an American black-ops soldier: Erik \"Killmonger\" Stevens—revealed to be N'Jadaka, T'Challa’s orphaned cousin. Killmonger defeats T'Challa in ritual combat, claims the crown, and prepares to dispatch vibranium armaments to oppressed populations worldwide to initiate global revolution.\n\nSaved and healed by the Jabari tribe and the Heart-Shaped Herb, T'Challa returns to confront Killmonger within the great vibranium mines. Fatally injured, Killmonger chooses death over captivity: \"Bury me in the ocean with my ancestors that jumped from the ships, because they knew death was better than bondage.\" Enlightened, T'Challa addresses the UN, opening Wakanda's technology to humanity."}, {"title": "Spider-Man: Homecoming", "author": "Timeline: 2016 · Phase 3 · Friendly Neighborhood", "body": "Two months after the excitement of the Leipzig airport battle, fifteen-year-old Peter Parker returns to his sophomore year at Midtown High School, eagerly awaiting Tony Stark's summons for the next Avengers assignment. Patrolling Queens in his Stark-upgraded suit, Peter discovers an underground enterprise selling deadly armaments crafted from salvaged alien Chitauri technology.\n\nThe operation is led by Adrian Toomes (The Vulture), a former salvage contractor who lost his business to Stark's Department of Damage Control. In his overzealous attempt to stop a weapon transaction, Peter accidentally causes a Staten Island Ferry to split in half, requiring Iron Man to intervene and repossess the high-tech suit, admonishing him: \"If you're nothing without this suit, then you shouldn't have it.\"\n\nDiscovering that Toomes is the father of his homecoming dance date Liz, Peter dons his basic homemade cloth suit. Alone and without Stark tech, he prevents Toomes from hijacking a cargo plane filled with Avengers equipment. Declining Tony's offer to move into the Avengers compound, Peter chooses to stay close to the ground as Queens' neighborhood protector."}, {"title": "Doctor Strange", "author": "Timeline: 2016–2017 · Phase 3 · Time Stone (Eye of Agamotto)", "body": "Brilliant but self-absorbed neurosurgeon Dr. Stephen Strange suffers debilitating nerve trauma to his hands in a violent car collision, burning through his fortune on unsuccessful procedures. Desperate for a cure, he journeys to Kathmandu, Nepal, finding the mystical redoubt of Kamar-Taj. There, the Ancient One introduces him to astral dimensions, mirror planes, and the Eldritch mystic arts guarding reality.\n\nStudying esoteric texts, Strange unlocks the Eye of Agamotto—an amulet holding the Time Stone, granting control over the temporal flow. Meanwhile, rogue sorcerer Kaecilius steals dark forbidden rituals to summon Dormammu, the malevolent entity of the timeless Dark Dimension, demolishing Sanctums in London and New York.\n\nWhen Kaecilius destroys the Hong Kong Sanctum, Strange enters the Dark Dimension itself, trapping Dormammu in an infinite temporal time loop: \"Dormammu, I've come to bargain.\" After incinerating Strange countless times only to watch reality instantly reset, the tortured cosmic demon surrenders, removing his zealots from Earth. Strange takes his place as Master of the New York Sanctum, guardian of the Time Stone."}, {"title": "Thor: Ragnarok", "author": "Timeline: 2017 · Phase 3 · The Fall of Asgard", "body": "Following Odin's peaceful death in Norway, Thor and Loki are attacked by Hela, the Goddess of Death and Odin's banished firstborn conqueror. Hela shatters Mjolnir to dust with one hand and hurls Thor and Loki through the Bifrost to Sakaar—a cosmic garbage planet governed by the eccentric Grandmaster.\n\nCaptured by Scrapper 142 (a traumatized Asgardian Valkyrie), Thor is thrown into a gladiatorial contest against the Grandmaster's reigning champion: the Incredible Hulk, who has lived as Sakaar's hero since the Battle of Sokovia. Thor helps Bruce Banner regain control, and together with Loki and Valkyrie, the \"Revengers\" commandeer a spacecraft to save Asgard from Hela's reign.\n\nRealizing Hela draws limitless power from Asgard's foundations, Thor understands that Asgard is a people, not a place. He orchestrates the release of the fire demon Surtur to trigger Ragnarok, destroying Asgard and obliterating Hela. Crowned King of the Asgardian survivors, Thor steers their starship toward Earth—unaware that Thanos's warship looms ahead."}, {"title": "Ant-Man and the Wasp", "author": "Timeline: 2018 · Phase 3 · Quantum Realm Recovery", "body": "Serving the final days of his two-year house arrest for his participation in Germany, Scott Lang experiences an uncanny quantum entanglement with Janet van Dyne, Hank Pym's wife who disappeared into the subatomic void thirty years prior. Defying federal surveillance, Scott contacts Hank and Hope van Dyne, who has taken up the wings and blasters of the Wasp.\n\nBuilding a sophisticated Quantum Tunnel to rescue Janet, they are hounded by Ava Starr (Ghost), a woman whose molecular structure is phasing apart due to quantum instability, and corrupt tech dealer Sonny Burch. Hank Pym pilots a subatomic pod into the depths of the Quantum Realm, finding Janet alive and sustained by exotic quantum energies.\n\nAfter stabilizing Ghost's condition with Janet's harvested particles, Scott re-enters the Quantum Realm on a rooftop to collect healing energy. At that exact second, Thanos snaps his fingers in Wakanda. Hank, Janet, and Hope disintegrate into dust, stranding Scott Lang alone inside the subatomic expanse."}]}, {"short": "Infinity", "title": "Era V: The Infinity War & The Five-Year Blip (2018–2023)", "years": "2018–2023", "cap": "Whatever It Takes", "img": "assets/images/era5_infinity.jpg", "blurb": "Thanos gathers the six Infinity Stones and wipes out half of all life. Five years later, Earth's remaining heroes execute a daring Time Heist to assemble a final stand.", "arts": [{"title": "Avengers: Infinity War", "author": "Timeline: 2018 · Phase 3 · The Six Infinity Stones", "body": "The Mad Titan Thanos embarks on a merciless campaign to assemble all six Infinity Stones and eliminate half of all life across the cosmos, believing it is the only way to save the universe from resource starvation. He executes half the Asgardian refugees to take the Space Stone from Loki, annihilates Xandar for the Power Stone, captures the Reality Stone on Knowhere, and sacrifices his daughter Gamora on Vormir to acquire the Soul Stone.\n\nEarth's heroes mount a frantic two-world defense. On Titan, Iron Man, Spider-Man, Doctor Strange, and the Guardians almost remove the Infinity Gauntlet before Quill's anguish over Gamora disrupts the plan. Having viewed 14,000,605 possible futures, Strange surrenders the Time Stone to preserve Tony Stark's life.\n\nIn Wakanda, Captain America, Black Panther, Thor, and the remaining heroes wage a fierce last stand to defend Vision's Mind Stone. Thor buries Stormbreaker into Thanos's chest, but Thanos sneers: \"You should have gone for the head.\" With a snap of his fingers, half of all living souls across the universe dissolve into ash, leaving the survivors mourning in silence."}, {"title": "Avengers: Endgame", "author": "Timeline: 2018–2023 · Phase 3 · The Time Heist & Final Battle", "body": "Three weeks after the Snap, the remaining Avengers find Thanos, only to discover he destroyed the Stones with their own power, leading an enraged Thor to execute him. Five grueling years pass as the universe lives in grief. In 2023, a rat inadvertently activates the quantum controls in San Francisco, releasing Scott Lang. Scott travels to Tony Stark and Steve Rogers with a revolutionary idea: utilizing the Quantum Realm for temporal transit.\n\nTony solves the temporal navigation GPS, and the team launches a \"Time Heist\" across past eras: New York 2012, Asgard 2013, and Morag and Vormir 2014, where Natasha Romanoff gives her life to secure the Soul Stone. In 2023, Bruce Banner channels the Nano Gauntlet and snaps his fingers, restoring every dusted soul.\n\nHowever, a 2014 variant of Thanos journeys through the quantum portal, decimating the Avengers compound. As Captain America stands alone against Thanos's vast invasion army, golden mystic portals open across the wreckage: Black Panther, Spider-Man, Strange, the Guardians, and armies of Wakanda and Asgard arrive as Cap calls: \"Avengers... Assemble!\" In the climax, Tony Stark steals the Stones onto his armor, whispers \"I am Iron Man,\" and snaps Thanos and his armada into oblivion, sacrificing his life to save reality."}, {"title": "Spider-Man: Far From Home", "author": "Timeline: 2024 · Phase 3 · The Blip's Aftermath", "body": "Eight months after Tony Stark's death, Peter Parker feels overwhelmed by the planet's expectation that he step up as the next Iron Man. Seeking a normal life, Peter joins a school summer trip through Europe, planning to confess his love to MJ. His vacation is interrupted when Nick Fury (secretly the Skrull Talos) enlists Peter alongside Quentin Beck, a charismatic warrior claiming to hail from a destroyed alternate dimension.\n\nBeck claims catastrophic Elementals destroyed his reality. Relieved to find an adult champion worthy of Stark's mantle, Peter surrenders the \"E.D.I.T.H.\" tactical defense glasses Tony left him. Peter quickly uncovers the truth: Beck is a fired Stark holographic specialist named Mysterio, whose Elementals are drone illusions engineered to manufacture his status as Earth's greatest hero.\n\nTrusting his spider-sense, Peter battles Beck's drone swarm in London. Defeating Mysterio and securing E.D.I.T.H., Peter confesses his feelings to MJ. However, a posthumous video broadcast released by J. Jonah Jameson reveals Spider-Man's true identity as Peter Parker to the entire planet, framing him for Mysterio's death."}, {"title": "Shang-Chi and the Legend of the Ten Rings", "author": "Timeline: 2024 · Phase 4 · The Ten Rings of Ta Lo", "body": "Living quietly as a San Francisco parking valet named Shaun, Shang-Chi is ambushed on a city bus by warriors from the Ten Rings organization seeking his jade dragon pendant. Shang-Chi reveals his stunning martial arts prowess, traveling to Macau to protect his sister Xialing alongside his loyal friend Katy.\n\nThey are taken to their father, Xu Wenwu, a thousand-year-old warlord wielding ten ancient rings of cosmic energy. Wenwu believes his deceased wife is imprisoned behind the dragon gate in the enchanted realm of Ta Lo, misled by psychic whispers from the soul-devouring Dweller-in-Darkness.\n\nReaching Ta Lo through a magical bamboo forest with the aid of Trevor Slattery and a creature named Morris, Shang-Chi masters his mother's wind-based martial arts. When Wenwu inadvertently shatters the dark seal, Shang-Chi inherits the Ten Rings, defeating the beast with the Great Protector dragon. Afterward, Wong summons Shang-Chi and Katy to Kamar-Taj, noting the rings are transmitting a mysterious signal into deep space."}, {"title": "Eternals", "author": "Timeline: 2024 · Phase 4 · The Celestial Emergence", "body": "For seven millennia, ten immortal artificial beings known as Eternals—led by Ajak and prime warrior Ikaris—have guarded Earth, believing they were sent by the Prime Celestial Arishem solely to eliminate predatory Deviants while fostering human development without interfering in human wars.\n\nFollowing the energy surge of the Hulk's Snap, the Emergence commences: the birth of the Celestial Tiamut inside Earth's core, which will destroy the planet to create new star systems. Sersi learns of their true purpose and resolves to halt the Emergence to preserve humanity, clashing with Ikaris whose loyalty to Arishem fractures the family.\n\nCombining their disparate powers into a Uni-Mind, Phastos, Druig, Makkari, and Thena channel their energy into Sersi, who transmutes the emerging Celestial into solid petrified stone rising from the Indian Ocean. Arishem plucks Sersi, Phastos, and Kingo into the stars to judge humanity's memories, while Starfox (Eros of Titan) appears to aid the remaining Eternals."}]}, {"short": "Multiverse", "title": "Era VI: The Multiverse Saga (2024–2026)", "years": "2024–2026", "cap": "Across Infinite Dimensions", "img": "assets/images/era6_multiverse.jpg", "blurb": "The barriers of reality collapse: alternate Spider-Men unite, the Scarlet Witch hunts across realities, gods collide, the quantum realm reveals Kang, and the timeline branches endlessly.", "arts": [{"title": "Spider-Man: No Way Home", "author": "Timeline: 2024 · Phase 4 · Multiversal Convergence", "body": "With his identity unmasked and his loved ones facing legal and academic ruin, Peter Parker turns to Doctor Strange to perform a spell making the world forget he is Spider-Man. Peter's frantic second-guessing corrupts the magic, cracking open the multiverse and drawing in foes who knew Peter Parker's identity in other realities: Green Goblin, Doc Ock, Electro, Sandman, and the Lizard.\n\nRefusing to send the villains back to their universes to die, Peter works to cure their afflictions. The Green Goblin (Norman Osborn) betrays them, killing Aunt May in a brutal attack. In her final moments, May gives Peter the immortal truth: \"With great power, there must also come great responsibility.\"\n\nJoined by two alternate Peter Parkers (Tobey Maguire and Andrew Garfield), the three Spider-Men unite at the Statue of Liberty to heal every displaced villain. To prevent infinite realities from collapsing into Earth-616, Peter instructs Strange to cast the original spell: erasing all memory of Peter Parker from every living mind. Sacrificing his life's bonds, Peter rents a small room in New York, continuing his lonely mission as Spider-Man."}, {"title": "Doctor Strange in the Multiverse of Madness", "author": "Timeline: 2024 · Phase 4 · The Darkhold & Scarlet Witch", "body": "When America Chavez—a young girl capable of opening star-shaped portals between dimensions when terrified—lands in Manhattan pursued by demonic beasts, Doctor Strange discovers the terrifying mastermind: Wanda Maximoff, fully corrupted by the dark grimoire known as the Darkhold as the Scarlet Witch, determined to claim America's power to inhabit a universe where her sons are alive.\n\nWanda lays waste to Kamar-Taj, forcing Strange and America through a multiversal vortex to Earth-838. There, Strange is arrested by the Illuminati (Professor Xavier, Reed Richards, Captain Carter, Black Bolt, Captain Marvel, and Mordo). Wanda dreamwalks into her alternate body and ruthlessly executes the entire council.\n\nTrapped in a decaying reality, Strange uses the dark magic of the Darkhold to \"dreamwalk\" into the corpse of an alternate variant of himself on Earth-616, creating a mantle of tortured souls. Confronting Wanda at Mount Wundagore, America shows Wanda her monstrous appearance to her alternate sons. Horrified at what she has become, Wanda collapses the mountain upon herself to eradicate every Darkhold in the multiverse."}, {"title": "Thor: Love and Thunder", "author": "Timeline: 2024 · Phase 4 · Gorr & The Necrosword", "body": "Exploring the cosmos alongside the Guardians of the Galaxy, Thor seeks spiritual equilibrium until distress calls alert him to Gorr the God Butcher, a mortal wielding the All-Black Necrosword who is sworn to exterminate every deity in the cosmos after his daughter died while gods ignored his prayers.\n\nGorr attacks New Asgard and abducts the children into the Shadow Realm. Returning to protect his people alongside King Valkyrie, Thor is shocked to find Jane Foster wielding the reforged shards of Mjolnir as the Mighty Thor, using its lightning to combat terminal cancer.\n\nTraveling to Omnipotence City to confront Zeus, Thor seizes Thunderbolt and pursues Gorr to the altar of Eternity—a cosmic entity capable of granting the first being to reach it any single wish. Jane expends the last of her mortal strength to shatter the Necrosword. Thor convinces Gorr to choose love over wrath, and Gorr uses his dying wish to revive his daughter Love, whom Thor adopts as his daughter and partner in heroism."}, {"title": "Black Panther: Wakanda Forever", "author": "Timeline: 2025 · Phase 4 · Namor & Undersea Talokan", "body": "Grieving the sudden loss of King T'Challa to an incurable disease, Queen Ramonda and Princess Shuri guide Wakanda through geopolitical storms as world superpowers seek vibranium outside Wakanda's borders.\n\nA deep-ocean prospecting team locates vibranium using a sensor designed by MIT student Riri Williams (Ironheart), disturbing Namor, the winged mutant sovereign of the underwater kingdom of Talokan. Namor demands Wakanda hand over the scientist or face total war. When talks fail, Namor floods Wakanda's capital, killing Queen Ramonda as she saves Riri.\n\nFuelled by vengeance, Shuri synthesizes an artificial Heart-Shaped Herb, encounters Killmonger in the Ancestral Plane, and becomes the Black Panther. Clashing with Namor in a fierce duel in the desert, Shuri spares his life at the brink, negotiating peace between Wakanda and Talokan while quietly journeying to Haiti to burn her mourning robes and meet T'Challa's young son, Toussaint."}, {"title": "Ant-Man and the Wasp: Quantumania", "author": "Timeline: 2025 · Phase 5 · Kang the Conqueror", "body": "While celebrating his public fame as an author, Scott Lang’s daughter Cassie invents a quantum satellite to map the subatomic universe. When the signal is triggered, Scott, Cassie, Hope, Hank Pym, and Janet van Dyne are sucked into the Quantum Realm.\n\nJanet reveals that during her decades in exile, she helped repair the time-craft of Kang the Conqueror—a multiversal conqueror banished to the subatomic universe by his alternate variants for annihilating entire timelines. Kang takes Cassie hostage, forcing Scott into a Probability Storm to retrieve Kang's multiversal power core.\n\nWith Hank's hyper-intelligent cybernetic ants and quantum freedom fighters, Scott and Hope battle Kang at his citadel, sabotaging the quantum drive and hurling Kang into the collapsing multiversal engine. Returning home, Scott enjoys his freedom, yet ponders Kang’s chilling warning that infinite variants of himself are marching to claim the multiverse."}, {"title": "Guardians of the Galaxy Vol. 3", "author": "Timeline: 2025 · Phase 5 · The High Evolutionary", "body": "Living on Knowhere, the Guardians are ambushed by Adam Warlock, a golden sovereign weapon. Rocket is grievously injured, and his cybernetic implants cannot be treated due to a biometric kill-switch embedded by his sadistic maker: the High Evolutionary, a scientist obsessed with forcibly engineering a perfect civilization.\n\nPeter Quill, Drax, Mantis, Nebula, and Groot—joined by a 2014 alternate variant of Gamora—infiltrate the organic citadel of Orgocorp to retrieve Rocket’s medical override passkey. Through memories, Rocket relives his childhood companions—Lylla, Teefs, and Floor—and their tragic murder at the hands of the creator.\n\nRevived by his found family, Rocket declares his identity: \"My name is Rocket Raccoon.\" The Guardians defeat the High Evolutionary, save thousands of imprisoned children and creatures, and peacefully part ways: Peter returns to Earth to see his grandfather, Mantis seeks her own path, Gamora returns to the Ravagers, and Rocket takes command of a new Guardians team."}, {"title": "The Marvels", "author": "Timeline: 2025 · Phase 5 · Quantum Entanglement", "body": "Investigating a spatial distortion created by Dar-Benn, the new leader of the Kree Empire wielding an ancient Quantum Band, Carol Danvers comes into contact with the anomaly. At the same moment, Captain Monica Rambeau reaches for the tear in space, and young Kamala Khan (Ms. Marvel) uses her family bangle in Jersey City.\n\nThe three find their light-based abilities linked: whenever two use their powers simultaneously, they instantaneously trade physical places across the galaxy. Learning to navigate these sudden shifts, the trio discovers Dar-Benn's plan: siphoning natural resources from other worlds to restore the ruined Kree planet of Hala.\n\nForming a sisterhood aboard Carol’s ship, the heroes coordinate their attacks. Defeating Dar-Benn at Earth's sun, Kamala uses both bangles to reignite Hala's star, while Monica seals a multiversal fracture from the other side—trapping herself in an alternate universe alongside the X-Men. Inspired, Kamala begins recruiting a team of young heroes, starting with Kate Bishop."}, {"title": "Deadpool & Wolverine", "author": "Timeline: 2024 · Phase 5 · The Void & Anchor Beings", "body": "Settling into ordinary life as a used-car salesman on Earth-10005, Wade Wilson (Deadpool) is kidnapped by Mr. Paradox of the Time Variance Authority (TVA). Paradox explains that Wade's universe is degenerating following the death of its \"Anchor Being\"—the Wolverine (Logan) who died in 2029—and offers Wade a chance to relocate to the sacred Marvel Cinematic Universe (Earth-616).\n\nUnwilling to abandon his friends, Wade travels the multiverse seeking a replacement Wolverine, finding a disillusioned, guilt-ridden variant of Logan who failed his X-Men. Paradox banishes both heroes to the Void—the cosmic purgatory ruled by Cassandra Nova, Charles Xavier's twin sister.\n\nForming an alliance with forgotten heroes—Blade, Elektra, Gambit, and X-23—Deadpool and Wolverine assault Cassandra's fortress and return to Wade’s universe. Uniting to dismantle Paradox's Time Ripper machine, the duo survives raw antimatter together, saving Wade's timeline and proving that every hero has a place in the boundless Marvel Multiverse."}]}];
+
+
+(function () {
+  'use strict';
+
+  var pgL = document.getElementById('pgL'), pgR = document.getElementById('pgR');
+  var turn = document.getElementById('turn');
+  var faceF = document.getElementById('faceF'), faceB = document.getElementById('faceB');
+  var btnPrev = document.getElementById('prev'), btnNext = document.getElementById('next');
+  var ribbons = document.getElementById('ribbons');
+  var book = document.getElementById('book');
+  var measure = document.getElementById('measure');
+
+  var PAGES = [], spread = 0, busy = false, maxSpread = 0, sectionPage = [];
+  var CORNER = '<button class="corner" aria-label="Turn the page"></button>';
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function paras(text) {
+    return String(text).split(/\n{2,}/).filter(Boolean);
+  }
+  function firstSentenceTitle(text) {
+    var clean = String(text || '').replace(/\s+/g, ' ').trim();
+    var sentence = (clean.match(/^.*?[.!?](?=\s|$)/) || [clean])[0];
+    var max = 24;
+
+    if (sentence.length <= max) return sentence;
+
+    var shortened = sentence.slice(0, max + 1);
+    var lastSpace = shortened.lastIndexOf(' ');
+    if (lastSpace > 12) shortened = shortened.slice(0, lastSpace);
+    else shortened = shortened.slice(0, max);
+    return shortened.replace(/[,:;.!?\s]+$/, '') + '…';
+  }
+
+  /* ---------- pagination ---------- */
+  function pageBox() {
+    // measure has the same padding as a page, and scrollHeight counts padding,
+    // so compare against the page's full inner height (minus safety gap for pgno & continued label)
+    return Math.max(300, pgL.clientHeight - 6);
+  }
+
+  function fits(html, limit) {
+    measure.innerHTML = html;
+    return measure.firstChild ? measure.scrollHeight <= limit : true;
+  }
+
+  /* split one article into pages; `carry` is html already sitting on the current page
+     (a previous, finished article) so the new article flows into the leftover space */
+  function paginateArticle(a, sectionTitle, carry) {
+    var limit = pageBox();
+    measure.style.width = pgL.clientWidth + 'px';
+    measure.style.height = 'auto';
+
+    var displayTitle = a.title || firstSentenceTitle(a.body);
+    var header = '<div class="a-title">' + esc(displayTitle) + '</div>' +
+                 '<div class="a-by">' + esc(a.author) + '</div>';
+    var blocks = paras(a.body);
+    var out = [], first = true;
+    var i = 0;
+    var SEP = '<hr class="a-sep">';
+    var pre = carry ? carry + SEP : '';
+
+    function pHtml(arr) { return arr.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join(''); }
+
+    while (i < blocks.length) {
+      var head = first ? header : '';
+      var cls = 'a-body' + (first ? ' first' : '');
+      var prefix = (first ? pre : '');
+      var taken = [];
+      var progressed = false;
+
+      while (i < blocks.length) {
+        var trial = taken.concat([blocks[i]]);
+        var hasMore = (i + 1 < blocks.length);
+        var trialHtml = prefix + head + '<div class="' + cls + '">' + pHtml(trial) + '</div>' +
+                   (hasMore ? '<div class="cont">continued &rarr;</div>' : '');
+        if (fits(trialHtml, limit)) { taken = trial; i++; progressed = true; continue; }
+
+        var words = blocks[i].split(' ');
+        var lo = 1, hi = words.length, best = 0;
+        while (lo <= hi) {
+          var mid = (lo + hi) >> 1;
+          var partial = taken.concat([words.slice(0, mid).join(' ')]);
+          var h2 = prefix + head + '<div class="' + cls + '">' + pHtml(partial) + '</div>' +
+                   '<div class="cont">continued &rarr;</div>';
+          if (fits(h2, limit)) { best = mid; lo = mid + 1; } else { hi = mid - 1; }
+        }
+        // avoid an orphaned title with only a couple of words when sharing a page
+        if (prefix && first && taken.length === 0 && best < 25) {
+          out.push({ kind: 'art', section: sectionTitle, html: carry });
+          prefix = ''; pre = '';
+          continue;
+        }
+        if (best > 0) {
+          taken = taken.concat([words.slice(0, best).join(' ')]);
+          blocks[i] = words.slice(best).join(' ');
+          progressed = true;
+        }
+        break;
+      }
+
+      if (!progressed) { taken = [blocks[i]]; i++; }   // safety valve
+
+      out.push({
+        kind: 'art', section: sectionTitle,
+        html: prefix + head + '<div class="' + cls + '">' + pHtml(taken) + '</div>' +
+              (i < blocks.length ? '<div class="cont">continued &rarr;</div>' : '')
+      });
+      first = false;
+    }
+    return out;
+  }
+
+  /* ---- flow articles through pages, filling leftover space ---- */
+  function buildPages() {
+    PAGES = [];
+    sectionPage = [];
+
+    PAGES.push({ kind: 'toc' });
+
+    SECTIONS.forEach(function (s, si) {
+      sectionPage[si] = PAGES.length;
+      PAGES.push({ kind: 'div', si: si });
+
+      var carry = '';
+      s.arts.forEach(function (a) {
+        var segs = paginateArticle(a, s.title, carry);
+        carry = segs.pop().html;
+        segs.forEach(function (seg) { PAGES.push(seg); });
+        // a trailing "continued" can't happen on the last segment, so carry is a finished page
+      });
+      if (carry) PAGES.push({ kind: 'art', section: s.title, html: carry });
+    });
+
+    PAGES.push({ kind: 'end' });
+    if (PAGES.length % 2) PAGES.push({ kind: 'blank' });
+    maxSpread = PAGES.length / 2 - 1;
+  }
+
+  /* ---------- rendering ---------- */
+  function render(p, idx) {
+    if (!p) return '';
+    var num = '<div class="pgno">' + (idx + 1) + '</div>';
+
+    if (p.kind === 'toc') {
+      var rows = SECTIONS.map(function (s, i) {
+        return '<li><button data-go="' + i + '">' +
+                 '<span class="num">' + ('0' + (i + 1)).slice(-2) + '</span>' +
+                 '<span class="ttl">' + s.title + '</span>' +
+                 '<span class="dots"></span>' +
+                 '<span class="p">p. ' + (sectionPage[i] + 1) + '</span>' +
+               '</button>' +
+               '<div class="sub">' + s.arts.length + ' movies &middot; ' + (s.years || '') + '</div></li>';
+      }).join('');
+      return '<div class="head">Marvel Cinematic Universe</div>' +
+             '<div class="dateline">The Sacred Timeline in Chronological Order &mdash; Select an era or turn the pages</div>' +
+             '<div class="sec-label">Six Chronological Eras &middot; ' +
+               SECTIONS.reduce(function (n, s) { return n + s.arts.length; }, 0) + ' Feature Films</div>' +
+             '<ul class="toc">' + rows + '</ul>' + num;
+    }
+
+    if (p.kind === 'div') {
+      var s2 = SECTIONS[p.si];
+      return '<div class="divider">' +
+               '<div class="num2">Era ' + ('0' + (p.si + 1)).slice(-2) + '</div>' +
+               '<h2>' + s2.title + '</h2>' +
+               '<div class="rule"></div>' +
+               '<div class="snap"><img src="' + s2.img + '" alt=""><div class="cap">' + s2.cap + '</div></div>' +
+               '<div class="blurb">' + s2.blurb + '</div>' +
+               '<div class="count">' + s2.arts.length + ' films in this era &rarr;</div>' +
+             '</div>' + num;
+    }
+
+    if (p.kind === 'art') {
+      return '<div class="runhead">' + p.section + '</div>' + p.html + num;
+    }
+
+    if (p.kind === 'end') {
+      return '<div class="endpg">' +
+               '<div class="fin">The Saga Continues &#10022;</div>' +
+               '<div class="note">You have traversed the entire Marvel Cinematic Universe chronological timeline, from Captain America in 1942 to the boundless Multiverse. New timelines await across infinite realities.</div>' +
+               '<button class="again" data-go="-1">Return to Timeline Contents &#8635;</button>' +
+             '</div>' + num;
+    }
+    return num;
+  }
+
+  function paint() {
+    pgL.innerHTML = render(PAGES[spread * 2], spread * 2);
+    pgR.innerHTML = render(PAGES[spread * 2 + 1], spread * 2 + 1) + (spread < maxSpread ? CORNER : '');
+    btnPrev.disabled = spread === 0;
+    btnNext.disabled = spread === maxSpread;
+
+    var cur = -1;
+    SECTIONS.forEach(function (s, i) {
+      if (spread * 2 + 1 >= sectionPage[i]) cur = i;
+    });
+    [].forEach.call(ribbons.children, function (r, i) { r.classList.toggle('on', i === cur); });
+  }
+
+  /* ---------- flipping ---------- */
+  function go(dir, done) {
+    if (busy) return;
+    var to = spread + dir;
+    if (to < 0 || to > maxSpread) return;
+    busy = true;
+
+    var isMobile = window.matchMedia('(max-width: 760px)').matches;
+    var isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isMobile || isReduced) {
+      spread = to;
+      paint();
+      busy = false;
+      if (done) done();
+      return;
+    }
+
+    if (dir > 0) {
+      faceF.innerHTML = render(PAGES[spread * 2 + 1], spread * 2 + 1);
+      faceB.innerHTML = render(PAGES[spread * 2 + 2], spread * 2 + 2);
+      pgR.innerHTML = render(PAGES[spread * 2 + 3], spread * 2 + 3) + (to < maxSpread ? CORNER : '');
+      turn.className = 'turn on fwd';
+    } else {
+      faceB.innerHTML = render(PAGES[spread * 2], spread * 2);
+      faceF.innerHTML = render(PAGES[spread * 2 - 1], spread * 2 - 1);
+      pgL.innerHTML = render(PAGES[spread * 2 - 2], spread * 2 - 2);
+      turn.className = 'turn on bwd';
+    }
+
+    var finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      turn.removeEventListener('animationend', h);
+      clearTimeout(safetyTimer);
+      spread = to;
+      paint();
+      turn.className = 'turn';
+      busy = false;
+      if (done) done();
+    }
+
+    function h(e) {
+      if (e.target !== turn) return;
+      finish();
+    }
+    turn.addEventListener('animationend', h);
+    var safetyTimer = setTimeout(finish, 750);
+  }
+
+  /* jump straight to a spread with a single page turn */
+  function jumpToPage(pageIdx) {
+    var to = Math.floor(pageIdx / 2);
+    if (to < 0) to = 0;
+    if (to > maxSpread) to = maxSpread;
+    if (busy || to === spread) return;
+    busy = true;
+
+    var isMobile = window.matchMedia('(max-width: 760px)').matches;
+    var isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isMobile || isReduced) {
+      spread = to;
+      paint();
+      busy = false;
+      return;
+    }
+
+    if (to > spread) {
+      faceF.innerHTML = render(PAGES[spread * 2 + 1], spread * 2 + 1);
+      faceB.innerHTML = render(PAGES[to * 2], to * 2);
+      pgR.innerHTML = render(PAGES[to * 2 + 1], to * 2 + 1) + (to < maxSpread ? CORNER : '');
+      turn.className = 'turn on fwd';
+    } else {
+      faceB.innerHTML = render(PAGES[spread * 2], spread * 2);
+      faceF.innerHTML = render(PAGES[to * 2 + 1], to * 2 + 1);
+      pgL.innerHTML = render(PAGES[to * 2], to * 2);
+      turn.className = 'turn on bwd';
+    }
+
+    var finished = false;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      turn.removeEventListener('animationend', h);
+      clearTimeout(safetyTimer);
+      spread = to;
+      paint();
+      turn.className = 'turn';
+      busy = false;
+    }
+
+    function h(e) {
+      if (e.target !== turn) return;
+      finish();
+    }
+    turn.addEventListener('animationend', h);
+    var safetyTimer = setTimeout(finish, 750);
+  }
+
+  /* ---------- wiring ---------- */
+  SECTIONS.forEach(function (s, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'ribbon r' + (i + 1);
+    b.textContent = s.short;
+    b.addEventListener('click', function () { jumpToPage(sectionPage[i]); });
+    ribbons.appendChild(b);
+  });
+
+  btnNext.addEventListener('click', function () { go(1); });
+  btnPrev.addEventListener('click', function () { go(-1); });
+
+  book.addEventListener('click', function (e) {
+    if (e.target.closest('.corner')) { go(1); return; }
+    var j = e.target.closest('[data-go]');
+    if (!j) return;
+    var v = +j.dataset.go;
+    jumpToPage(v < 0 ? 0 : sectionPage[v]);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') go(1);
+    else if (e.key === 'ArrowLeft') go(-1);
+  });
+
+  var x0 = null;
+  book.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  book.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 55) go(dx < 0 ? 1 : -1);
+    x0 = null;
+  }, { passive: true });
+
+  /* ---------- sizing + build ---------- */
+  function sizePages() {
+    // a page keeps a book-ish proportion, based on its own width
+    var w = book.clientWidth / (window.matchMedia('(max-width: 760px)').matches ? 1 : 2);
+    var h = Math.max(480, Math.min(Math.round(w * 1.3), Math.round(window.innerHeight * 0.92)));
+    pgL.style.height = pgR.style.height = h + 'px';
+    measure.style.height = 'auto';
+    measure.style.width = w + 'px';
+  }
+
+  function rebuild(keepPage) {
+    sizePages();
+    buildPages();
+    spread = Math.min(Math.floor((keepPage || 0) / 2), maxSpread);
+    paint();
+  }
+
+  var started = false;
+  function start() {
+    if (started) return;
+    started = true;
+    rebuild(0);
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(start);
+  }
+  window.addEventListener('load', start);
+  setTimeout(start, 400);
+
+  var t = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(t);
+    t = setTimeout(function () { rebuild(spread * 2); }, 220);
+  });
+})();
+</script>
+
+</body></html>
